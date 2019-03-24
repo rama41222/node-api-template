@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { logger } = require('../utils');
-
+const { MongoDBSettings } = require('./../config');
 mongoose.Promise = global.Promise;
 
 // const MONGODB_URI = `mongodb://${username}:${password}@${host}:${port}/${databaseName}`;
@@ -11,14 +11,14 @@ const options = {
   useNewUrlParser: true,
 };
 
-if (!process.env.MONGODB_URI) {
+if (!MongoDBSettings.url) {
   logger.error('Please set MONGO_URI');
   process.exit(-1);
 }
 
-mongoose.connect(process.env.MONGODB_URI, options);
+mongoose.connect(MongoDBSettings.url, options);
 
-// mongoose.connect(process.env.MONGODB_URI, {
+// mongoose.connect(MongoDBSettings.url, {
 //   auth: {
 //     user: username,
 //     password: password
